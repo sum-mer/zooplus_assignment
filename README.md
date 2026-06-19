@@ -1,8 +1,6 @@
-**Prerequisite:**
-
-npm init playwright@latest
-
 **Running tests:**
+
+npm install
 
 npx playwright test
 

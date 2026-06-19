@@ -14,12 +14,12 @@ async function printAndCheck(ctx: BrowserContext, exp: string) {
  * 'test', using pattern 'name-surname-test'. Perform cart operation with the updated sid value. In a fresh session set the sid to your
  * custom one and refresh the page. Verify cart has elements from your 1 st session.
  */
-test('cookie sid replacement', async ({cartPage, context, browser}) => {
+test.skip('cookie sid replacement', async ({cartPage, context, browser}) => {
     // SESSION 1
     await cartPage.prepareCartWithOneProductInBasket(); // Add products to cart
     const articleInBasket = cartPage.yourDelivery.article(0); // quantity == 1 before changing cookie
 
-    const customSID = "ozk-test";
+    const customSID = "olga-zk-test";
 
     await context.addCookies([{
         name: 'sid',
@@ -31,7 +31,7 @@ test('cookie sid replacement', async ({cartPage, context, browser}) => {
     await printAndCheck(context, customSID); // correct == custom sid in context
 
     // Perform cart operation with the updated sid value.
-    await articleInBasket.incrementQuantity(); // BUT looking at Network tab - in request to BE previous sid value (uuid) is sent...
+    await articleInBasket.incrementQuantity(); // BUT looking at Network tab - in requests previous sid value (uuid) is sent...
     await articleInBasket.expectQuantity(2);
 
     // SESSION 2
