@@ -1,0 +1,1 @@
+export const CHECKOUT_THRESHOLD = 19.00;

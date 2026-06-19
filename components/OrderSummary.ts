@@ -26,6 +26,14 @@ export class OrderSummary {
         return this.root.getByTestId('shipping-country-name');
     }
 
+    get proceedToCheckout() {
+        return this.root.getByTestId('goto-preview-button');
+    }
+
+    get checkoutThresholdNotReachedError() {
+        return this.root.getByTestId('cart-message-error');
+    }
+
     async getShippingCost() {
         const priceWithCurrency = await this.shippingCost
             .textContent();
@@ -67,6 +75,18 @@ export class OrderSummary {
 
         await this.expectSubTotal(subtotal);
         await this.expectTotalPrice(add(subtotal, shippingCost));
+    }
+
+    async expectCheckoutDisabled() {
+        await expect(this.proceedToCheckout).toBeDisabled();
+    }
+
+    async expectCheckoutEnabled() {
+        await expect(this.proceedToCheckout).toBeEnabled();
+    }
+
+    async expectCheckoutErrorMessageVisible() {
+        await expect(this.checkoutThresholdNotReachedError).toBeVisible();
     }
 
 }

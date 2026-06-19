@@ -1,14 +1,9 @@
 import {test} from '../fixtures/cart.fixture';
 import {sortDescending} from "../helpers/sortUtils";
-import {CartPage} from "../pages/CartPage";
-import {BrowserContext} from "@playwright/test";
 
 test('should update cart total when one product is added to basket', async ({cartPage}) => {
-    // given
-    const product = await cartPage.recommendations.onEmptyBasket().product(0);
-
-    // when
-    await product.addToBasket();
+    // given & when
+    await cartPage.prepareCartWithOneProductInBasket();
 
     // then
     await cartPage.expectBasketWithGivenItemsCount(1);

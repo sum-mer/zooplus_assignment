@@ -57,6 +57,25 @@ export class CartPage {
         await this.yourDelivery.expectArticleCount(1);
     }
 
+    async prepareCartWithOneProductAbovePrice(value: number) {
+        const productA = await this.recommendations.onEmptyBasket().getFirstProductWithPriceAbove(value);
+        await productA.addToBasket();
+
+        await this.filledState.waitForVisible();
+        await this.yourDelivery.waitForVisible();
+        await this.yourDelivery.expectArticleCount(1);
+    }
+
+
+    async prepareCartWithOneProductBelowPrice(value: number) {
+        const productA = await this.recommendations.onEmptyBasket().getFirstProductWithPriceBelow(value);
+        await productA.addToBasket();
+
+        await this.filledState.waitForVisible();
+        await this.yourDelivery.waitForVisible();
+        await this.yourDelivery.expectArticleCount(1);
+    }
+
     async prepareCartWithThreeProductsInBasket() {
         await this.prepareCartWithOneProductInBasket();
 
